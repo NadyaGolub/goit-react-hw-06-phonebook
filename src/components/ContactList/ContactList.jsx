@@ -1,14 +1,14 @@
 import { ButtonDel, Item } from "./ContactList.styled";
 import { useSelector } from "react-redux";
-import { selectFilteredContacts } from "components/redux/selectors";
+import { selectFilteredContacts } from "redux/selectors";
 import { useDispatch } from "react-redux";
-import { deleteContact } from "components/redux/contactsSlice";
+import { deleteContact } from "redux/contactsSlice";
 
 export const ContactList = () => {
   const contacts = useSelector(selectFilteredContacts);
   const dispatch = useDispatch();
-  const handleDeleteContact = () => {
-    dispatch(deleteContact())
+  const handleDeleteContact = evt => {
+    dispatch(deleteContact(evt.target.id))
   }
   return (
     <ul>
@@ -17,7 +17,7 @@ export const ContactList = () => {
           <Item key={id} >
                 <p>{name}: </p>
                 <p>{number} </p>
-            <ButtonDel  onClick={handleDeleteContact}>Delete</ButtonDel>
+            <ButtonDel id={id} onClick={handleDeleteContact}>Delete</ButtonDel>
           </Item>
         );
       })}
